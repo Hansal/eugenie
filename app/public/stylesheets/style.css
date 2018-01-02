@@ -20,6 +20,8 @@ a {
     margin: 0 auto;
     display: block;
     width: 100%;
+    max-height: fit-content;
+    max-width: max-content;
 }
 
 .vertical-alignment-helper {
