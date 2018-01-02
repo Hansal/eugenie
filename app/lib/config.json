@@ -1,0 +1,12 @@
+{
+    "db" : {
+        "host": "eugenie.southeastasia.cloudapp.azure.com",
+        "user": "eugenie",
+        "password": "eugenie",
+        "database": "eugenie",
+        "port": 3306
+    },
+    "azure" : {
+        "key": "value"
+    }
+}
