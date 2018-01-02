@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
                 res.render('gallery', { message: 'Error in getting data', error: err });
                 return;
             }
-            console.log(results);
             res.render('gallery', { title: 'Gallery', imagesData: results });
     });
 
