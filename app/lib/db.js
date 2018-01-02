@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('/etc/eugenie/config');
 const mysql = require('mysql');
 const db = {};
 
