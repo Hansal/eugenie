@@ -3,16 +3,48 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/javascripts/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="/javascripts/jquery-lazy.js"></script> -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.6/jquery.lazy.min.js"></script>
   </head>
   <body>
+
+
     <h1><%= title %></h1>
     <p>Welcome to <%= title %> Page</p>
+
+    <!-- Trigger the modal with a button -->
+    <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+    <%- include modal %>
+
+
+
     <div id="gallery-collection" class="container-fluid">
         <% for(var i=0; i<imagesData.length; i++) {%>
-            <img class="img-thumbnail" src=<%= imagesData[i].imageUrl %> />
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-src=<%= imagesData[i].imageUrl%> />
         <% } %>
     </div>
 
+
   </body>
+
+  <script type="text/javascript">
+  $('.lazy').Lazy({
+     // your configuration goes here
+     scrollDirection: 'vertical',
+     effect: 'fadeIn',
+     visibleOnly: true,
+     onError: function(element) {
+         console.log('error loading ' + element.data('src'));
+     }
+    });
+
+    $('.img-thumbnail').click(function(item){
+	       var imgSrc = item.currentTarget.src;
+           $('.modal-body img').attr("src", imgSrc);
+       });
+  </script>
 </html>

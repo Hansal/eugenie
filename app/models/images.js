@@ -4,7 +4,7 @@ const images = {};
 
 images.getImages = (callback) => {
     const sql = `SELECT *
-        FROM images`;
+        FROM images ORDER BY ID DESC`;
     db.execute(sql, [], callback);
 }
 
