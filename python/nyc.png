@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beach Diaries</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/javascripts/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="/javascripts/jquery-lazy.js"></script> -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.6/jquery.lazy.min.js"></script>
+  </head>
+  <body>
+
+
+    <h1>Beach Diaries</h1>
+    <p class="pull-left">Monday, January 1st, 2018</p>
+    <a class="pull-right" href="/">All Albums</a>
+    <!-- Trigger the modal with a button -->
+    <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="vertical-alignment-helper">
+          <div class="modal-dialog modal-lg vertical-align-center">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <!-- <div class="modal-header"> -->
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <!-- <h4 class="modal-title"></h4> -->
+              <!-- </div> -->
+              <div class="modal-body">
+                  
+                        <img src=https://images.unsplash.com/photo-1503179008861-d1e2b41f8bec?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb>
+                      
+
+              </div>
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div> -->
+            </div>
+          </div>
+      </div>
+</div>
+
+
+
+
+    <div id="gallery-collection" class="container-fluid">
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=1 data-src=https://eugenie.blob.core.windows.net/year-end-party/10.png />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=3 data-src=https://images.unsplash.com/photo-1458324124043-7803d4fec380?auto=format&amp;fit=crop&amp;w=1057&amp;q=80 />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=4 data-src=https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&amp;fit=crop&amp;w=968&amp;q=80 />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=6 data-src=https://images.unsplash.com/photo-1464274771514-c57f7d74fd20?auto=format&amp;fit=crop&amp;w=750&amp;q=80 />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=10 data-src=https://images.unsplash.com/photo-1453413453658-27fec8f43f29?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=12 data-src=https://images.unsplash.com/photo-1466147646996-f58db245d4b9?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=16 data-src=https://images.unsplash.com/photo-1504786328163-b16f428adc28?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=380&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=18 data-src=https://images.unsplash.com/photo-1505497077291-155d52047c23?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=710&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=20 data-src=https://images.unsplash.com/21/string-lights.JPG?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=757&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=21 data-src=https://images.unsplash.com/photo-1429292394373-ddbcc6bb7468?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=22 data-src=https://images.unsplash.com/photo-1454532256047-6f79947885b9?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=371&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=23 data-src=https://images.unsplash.com/6/stones.JPG?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=757&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=24 data-src=https://images.unsplash.com/photo-1456769965965-63334afeaeb8?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=25 data-src=https://images.unsplash.com/photo-1437196451254-6142a34a6a3a?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=27 data-src=https://images.unsplash.com/photo-1504857100483-2c6e431364e4?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=29 data-src=https://images.unsplash.com/photo-1464128699226-25727cb10d4e?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=710&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=30 data-src=https://images.unsplash.com/photo-1468136020796-0eec5226a897?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=31 data-src=https://images.unsplash.com/photo-1466150186684-fe056d25af64?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=35 data-src=https://images.unsplash.com/photo-1473225071450-1f1462d5aa92?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=376&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=37 data-src=https://images.unsplash.com/photo-1504861081541-e24d43143a08?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=852&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=39 data-src=https://images.unsplash.com/photo-1440985465094-6ac443aab454?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=40 data-src=https://images.unsplash.com/photo-1474364766806-d1f562d479d3?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=314&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=41 data-src=https://images.unsplash.com/photo-1507851285793-32a3b576b5e2?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=1012&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=42 data-src=https://images.unsplash.com/photo-1470637385616-25dcd6531150?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=360&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=43 data-src=https://images.unsplash.com/photo-1431577160707-264195a62133?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=44 data-src=https://images.unsplash.com/photo-1501569420805-e4dd535ec970?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=45 data-src=https://images.unsplash.com/photo-1503610220663-a45ce52a7137?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=756&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=47 data-src=https://images.unsplash.com/photo-1503179008861-d1e2b41f8bec?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=48 data-src=https://images.unsplash.com/photo-1473873446975-123c5143248b?dpr=1&amp;auto=format&amp;fit=crop&amp;w=568&amp;h=379&amp;q=60&amp;cs=tinysrgb />
+        
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+  $('.lazy').Lazy({
+     // your configuration goes here
+     scrollDirection: 'vertical',
+     effect: 'fadeIn',
+     visibleOnly: true,
+     onError: function(element) {
+         console.log('error loading ' + element.data('src'));
+     }
+    });
+
+    $('.img-thumbnail').click(function(item){
+	       var imgSrc = item.currentTarget.src;
+           var imgId = parseInt(item.currentTarget.dataset.id);
+           $('.modal-body img').attr("src", imgSrc);
+
+           var pushState = window.location.origin + window.location.pathname +'?imageID='+imgId;
+           window.history.pushState('', '', pushState);
+       });
+
+    var getQueryString = function ( field, url ) {
+        var href = url ? url : window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
+    };
+
+    $(document).ready(function(){
+        var imageId = getQueryString('imageID');
+        if(imageId){
+            $('#myModal').modal('show');
+        }
+    });
+  </script>
+</html>
