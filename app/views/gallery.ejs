@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %> Page</p>
+    <div id="gallery-collection" class="container-fluid">
+        <% for(var i=0; i<imagesData.length; i++) {%>
+            <img class="img-thumbnail" src=<%= imagesData[i].imageUrl %> />
+        <% } %>
+    </div>
+
+  </body>
+</html>
