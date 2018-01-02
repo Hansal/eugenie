@@ -7,6 +7,12 @@ a {
   color: #00B7FF;
 }
 
+
+
+#gallery-collection {
+    clear: both;
+}
+
 #gallery-collection > img {
     width: 25%;
     height: 220px;
