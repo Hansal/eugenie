@@ -24,13 +24,9 @@
 
     <div id="gallery-collection" class="container-fluid">
         <% for(var i=0; i<imagesData.length; i++) {%>
-            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-src=<%= imagesData[i].imageUrl%> />
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageUrl%> />
         <% } %>
     </div>
-
-
-    <input type="text" name="" value="">
-
 
   </body>
 
@@ -47,7 +43,24 @@
 
     $('.img-thumbnail').click(function(item){
 	       var imgSrc = item.currentTarget.src;
+           var imgId = parseInt(item.currentTarget.dataset.id);
            $('.modal-body img').attr("src", imgSrc);
+
+           window.history.pushState('', '', "gallery?id="+imgId);
        });
+
+    var getQueryString = function ( field, url ) {
+        var href = url ? url : window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
+    };
+
+    $(document).ready(function(){
+        var imageId = getQueryString('id');
+        if(imageId){
+            $('#myModal').modal('show');
+        }
+    });
   </script>
 </html>
