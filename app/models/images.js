@@ -14,6 +14,12 @@ images.getImagesByIndex = (index, callback) => {
     db.execute(sql, [index], callback);
 }
 
+images.getImagesByAlbumID = (index, callback) => {
+    const sql = `SELECT *
+        FROM images WHERE albumID = ?`;
+    db.execute(sql, [index], callback);
+}
+
 images.getImagesFromIndex = (start, limit, callback) => {
     const sql = `SELECT *
         FROM images WHERE ID > ? LIMIT ?`;

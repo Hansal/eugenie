@@ -14,7 +14,7 @@
 
 
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %> Page</p>
+    <p><%= title %></p>
 
     <!-- Trigger the modal with a button -->
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
@@ -24,7 +24,7 @@
 
     <div id="gallery-collection" class="container-fluid">
         <% for(var i=0; i<imagesData.length; i++) {%>
-            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageUrl%> />
+            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageURL%> />
         <% } %>
     </div>
 
@@ -46,7 +46,8 @@
            var imgId = parseInt(item.currentTarget.dataset.id);
            $('.modal-body img').attr("src", imgSrc);
 
-           window.history.pushState('', '', "gallery?id="+imgId);
+           var pushState = window.location.origin + window.location.pathname +'?imageID='+imgId;
+           window.history.pushState('', '', pushState);
        });
 
     var getQueryString = function ( field, url ) {
@@ -57,7 +58,7 @@
     };
 
     $(document).ready(function(){
-        var imageId = getQueryString('id');
+        var imageId = getQueryString('imageID');
         if(imageId){
             $('#myModal').modal('show');
         }
