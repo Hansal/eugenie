@@ -14,8 +14,34 @@
 
 
     <h1><%= title %></h1>
-    <p class="pull-left"><%= subtitle %></p>
-    <a class="pull-right" href="/">All Albums</a>
+    <!-- <p class="pull-left"><%= subtitle %></p> -->
+    <!-- <a class="pull-right" href="/">All Albums</a> -->
+
+    <!-- Hansal's Change start -->
+    <div class="columnHeader" id="non-scrolling-header">
+
+      <div class = "left-align"><%= subtitle %></div>
+      <a class = "right-align" href="/">All Albums</a>
+      <!-- Upload needs to be a href once the feature works -->
+      <div class = "center-align">Upload</div>
+    </div>
+
+    <script type="text/javascript">
+      window.onscroll = function() {stickyHeaderFunction()};
+
+      var header = document.getElementById("non-scrolling-header");
+      var sticky = header.offsetTop;
+
+      function stickyHeaderFunction() {
+        if (window.pageYOffset >= sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
+    </script>
+    <!-- Hansal's Change start -->
+
     <!-- Trigger the modal with a button -->
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
     <%- include modal %>
