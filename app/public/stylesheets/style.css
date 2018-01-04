@@ -52,29 +52,17 @@ a {
     pointer-events: all;
 }
 
-.left-align{
-    float:left;
-    width:175px;
-}
-
-.right-align{
-    float:right;
-    width:80px;
-}
-
 .center-align{
     margin:0 auto;
     width:10px;
 }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 91%;
-}
 
 .columnHeader {
   padding: 5px 5px;
   background: #AEB6BF;
   color: #f1f1f1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
