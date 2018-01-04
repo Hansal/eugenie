@@ -1,0 +1,18 @@
+<h1><%= title %></h1>
+<p>Welcome to <%= title %> Page</p>
+<p>Created on: <%= subtitle %></p>
+<p>AlbumID: <%= albumID %></p>
+
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="text" name="blockBlobContainerName" value="year-end-party"><br>
+    <input type="file" name="blockBlobFile" accept="image/*">
+    <input type="submit">
+</form>
+
+
+<!-- <form action="/upload" enctype="multipart/form-data" method="post">'+
+  <input type="text" name="title"><br>
+  <input type="file" name="upload"><br>
+  <input type="submit" value="Upload">
+</form> -->
