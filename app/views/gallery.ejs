@@ -2,8 +2,10 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 
     <script type="text/javascript" src="/javascripts/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,17 +15,21 @@
   <body>
 
 
-    <h1><%= title %></h1>
+    <h1 class="title"><%= title %></h1>
     <!-- <p class="pull-left"><%= subtitle %></p> -->
     <!-- <a class="pull-right" href="/">All Albums</a> -->
 
     <!-- Hansal's Change start -->
-    <div class="columnHeader">
+    <div class="columnHeader row">
 
-      <div class="pull-left"><%= subtitle %></div>
-      <a class="pull-right" href="/">All Albums</a>
-      <!-- Upload needs to be a href once the feature works -->
-      <div id="uploadClick" class="center-align">Upload</div>
+      <div class="col-xs-6 col-sm-4"><%= subtitle %></div>
+        <a id="uploadClick" href="#">
+          <div class="col-sm-4 text-center hidden-xs">Upload <span> to <%= title %> </span> </div>
+          <div class="fab visible-xs">
+              <div class="glyphicon glyphicon-camera"></div>
+          </div>
+        </a>
+      <a class="col-xs-6 col-sm-4 text-right" href="/">All Albums</a>
     </div>
 
 
@@ -33,50 +39,13 @@
 
 
 
-    <div id="gallery-collection" class="container-fluid">
+    <div id="gallery-collection" class="container-fluid masonry">
         <% for(var i=0; i<imagesData.length; i++) {%>
-            <img class="img-thumbnail lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageURL%> />
+            <img class="item lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageURL%> />
         <% } %>
     </div>
 
   </body>
 
-  <script type="text/javascript">
-  $('.lazy').Lazy({
-     // your configuration goes here
-     scrollDirection: 'vertical',
-     effect: 'fadeIn',
-     visibleOnly: true,
-     onError: function(element) {
-         console.log('error loading ' + element.data('src'));
-     }
-    });
-
-    $('.img-thumbnail').click(function(item){
-	       var imgSrc = item.currentTarget.src;
-           var imgId = parseInt(item.currentTarget.dataset.id);
-           $('.modal-body img').attr("src", imgSrc);
-
-           var pushState = window.location.origin + window.location.pathname +'?imageID='+imgId;
-           window.history.pushState('', '', pushState);
-       });
-
-    var getQueryString = function ( field, url ) {
-        var href = url ? url : window.location.href;
-        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
-        var string = reg.exec(href);
-        return string ? string[1] : null;
-    };
-
-    $(document).ready(function(){
-        var imageId = getQueryString('imageID');
-        if(imageId){
-            $('#myModal').modal('show');
-        }
-
-        $('#uploadClick').click(function(){
-            $('#uploadModal').modal('show');
-        })
-    });
-  </script>
+  <script type="text/javascript" src="/javascripts/script.js"></script>
 </html>

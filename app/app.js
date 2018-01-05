@@ -23,7 +23,7 @@ app.use(bodyParser.raw({ limit: '50mb'}) );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', album);
+app.use('/', index);
 app.use('/gallery', gallery);
 app.use('/albums', album);
 

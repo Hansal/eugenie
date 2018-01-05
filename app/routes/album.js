@@ -23,6 +23,7 @@ let upload  = multer({
 
 var router = express.Router();
 /* GET album by ID listing. */
+
 router.get('/:id', function(req, res, next) {
     const albumID = req.params.id || null;
     const imageID = req.query.imageID || null;
@@ -33,6 +34,7 @@ router.get('/:id', function(req, res, next) {
     async.parallel({
         albumData: function(callback) {
             albums.getAlbumsByIndex(albumID, (err, albumResults) => {
+                console.log(albumResults);
                 callback(null, albumResults[0]);
             });
         },
