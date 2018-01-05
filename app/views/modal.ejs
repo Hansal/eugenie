@@ -29,3 +29,90 @@
           </div>
       </div>
 </div>
+
+<div id="uploadModal" class="modal fade" role="dialog">
+    <div class="vertical-alignment-helper">
+      <div class="modal-dialog modal-lg vertical-align-center">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-body">
+              <h1><%= title %></h1>
+              <p>Welcome to <%= title %> Page</p>
+              <p>Created on: <%= subtitle %></p>
+              <p>AlbumID: <%= albumID %></p>
+
+
+              <form id="imageUploadForm" method="post" enctype="multipart/form-data">
+                  <input type="text" name="blockBlobContainerName" value="year-end-party"><br>
+                  <input type="file" name="blockBlobFile" accept="image/*">
+                  <input type="submit" value="Submit" id="btnSubmit"/>
+              </form>
+
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div> -->
+        </div>
+      </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    // $("form#imageUploadForm").submit(function(e) {
+    //     e.preventDefault();
+    //     var formData = new FormData(this);
+    //     alert('Called Form click');
+    //     $.ajax({
+    //         url: window.location.pathname+"/upload",
+    //         type: 'POST',
+    //         data: formData,
+    //         success: function (data) {
+    //             alert(data)
+    //         },
+    //         processData: false
+    //     });
+    // });
+
+    $("#btnSubmit").click(function (event) {
+        //stop submit the form, we will post it manually with js.
+        event.preventDefault();
+
+        // Get form
+        var form = $('#imageUploadForm')[0];
+
+		// Create an FormData object
+        var data = new FormData(form);
+
+		// If you want to add an extra field for the FormData
+        data.append("CustomField", "This is some extra data, testing");
+
+		// disabled the submit button
+        $("#btnSubmit").prop("disabled", true);
+
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: window.location.pathname+"/upload",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+
+
+                console.log("SUCCESS : ", data);
+                $("#btnSubmit").prop("disabled", false);
+
+            },
+            error: function (e) {
+
+                
+                console.log("ERROR : ", e);
+                $("#btnSubmit").prop("disabled", false);
+
+            }
+        });
+    });
+</script>

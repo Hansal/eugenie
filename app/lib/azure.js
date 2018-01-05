@@ -3,7 +3,7 @@ var util = require('util');
 var guid = require('node-uuid');
 var crypto = require('crypto');
 var storage = require('azure-storage');
-var config = require('./config');
+const config = require('/etc/eugenie/config');
 
 
 var blobService = storage.createBlobService(config.azure.azureStorageConnectionString);
