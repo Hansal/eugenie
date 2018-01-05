@@ -37,17 +37,20 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-body">
-              <h1><%= title %></h1>
-              <p>Welcome to <%= title %> Page</p>
-              <p>Created on: <%= subtitle %></p>
-              <p>AlbumID: <%= albumID %></p>
+              <div class="row">
+                  <p class="col-xs-6">Upload image to <%= title %></p>
+                  <p class="col-xs-6 pull-right">Created on: <%= subtitle %></p>
+              </div>
+
 
 
               <form id="imageUploadForm" method="post" enctype="multipart/form-data">
-                  <input type="text" name="blockBlobContainerName" value="year-end-party"><br>
+                  <input type="hidden" name="blockBlobContainerName" value="year-end-party">
                   <input type="file" name="blockBlobFile" accept="image/*">
                   <input type="submit" value="Submit" id="btnSubmit"/>
               </form>
+              <div class="loader"></div>
+
 
           </div>
           <!-- <div class="modal-footer">
@@ -80,16 +83,14 @@
 
         // Get form
         var form = $('#imageUploadForm')[0];
+        var duplicateImg = $('img.img-thumbnail.lazy')[0].cloneNode(true);
 
 		// Create an FormData object
         var data = new FormData(form);
-
-		// If you want to add an extra field for the FormData
-        data.append("CustomField", "This is some extra data, testing");
-
 		// disabled the submit button
         $("#btnSubmit").prop("disabled", true);
-
+        $("#imageUploadForm").hide();
+        $(".loader").show();
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -100,18 +101,19 @@
             cache: false,
             timeout: 600000,
             success: function (data) {
+                duplicateImg.src = data.imageUrl;
+                duplicateImg.dataset.id = data.imageID;
 
-
-                console.log("SUCCESS : ", data);
+                $('#gallery-collection').prepend(duplicateImg);
+                $(".loader").hide();
                 $("#btnSubmit").prop("disabled", false);
-
+                $('#uploadModal').modal('hide');
+                $("#imageUploadForm").show();
             },
             error: function (e) {
-
-                
-                console.log("ERROR : ", e);
+                alert('Something went wrong during the upload');
+                $("#imageUploadForm").show();
                 $("#btnSubmit").prop("disabled", false);
-
             }
         });
     });
