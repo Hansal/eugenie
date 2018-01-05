@@ -23,7 +23,7 @@
       <div class="pull-left"><%= subtitle %></div>
       <a class="pull-right" href="/">All Albums</a>
       <!-- Upload needs to be a href once the feature works -->
-      <div class="center-align">Upload</div>
+      <div id="uploadClick" class="center-align">Upload</div>
     </div>
 
 
@@ -73,6 +73,10 @@
         if(imageId){
             $('#myModal').modal('show');
         }
+
+        $('#uploadClick').click(function(){
+            $('#uploadModal').modal('show');
+        })
     });
   </script>
 </html>

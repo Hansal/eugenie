@@ -4,14 +4,27 @@ const async = require('async');
 var albums = require('../models/albums');
 var image = require('../models/images');
 var utils = require('../lib/utils');
+// var config = require('../lib/config');
+const config = require('/etc/eugenie/config');
+var azure = require('../lib/azure');
+var util = require('util');
+let multer  = require('multer');
+var streamifier = require('streamifier');
 
+
+let upload  = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 10000000
+    }
+});
 
 
 
 var router = express.Router();
 /* GET album by ID listing. */
 router.get('/:id', function(req, res, next) {
-    const albumId = req.params.id || null;
+    const albumID = req.params.id || null;
     const imageID = req.query.imageID || null;
     let openImage = {};
 
@@ -19,12 +32,12 @@ router.get('/:id', function(req, res, next) {
     // an example using an object instead of an array
     async.parallel({
         albumData: function(callback) {
-            albums.getAlbumsByIndex(albumId, (err, albumResults) => {
+            albums.getAlbumsByIndex(albumID, (err, albumResults) => {
                 callback(null, albumResults[0]);
             });
         },
         imageData: function(callback) {
-            image.getImagesByAlbumID(albumId, (err, imageResults) => {
+            image.getImagesByAlbumID(albumID, (err, imageResults) => {
                 callback(null, imageResults);
             });
         }
@@ -46,11 +59,42 @@ router.get('/:id', function(req, res, next) {
             title: results.albumData.albumName,
             subtitle: utils.formatDates(results.albumData.createdOn),
             imagesData: results.imageData,
+            albumID,
             openImage
         });
     });
 
 
+});
+
+router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
+  //   res.header("Access-Control-Allow-Origin", "*");
+  //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  try {
+      const { blockBlobContainerName } = req.body;
+      const file = req.files[0];
+
+      console.log(req.files);
+      var stream = streamifier.createReadStream(file.buffer);
+      var options = {contentSettings:{contentType:'Image/png'}}
+
+      azure.uploadBlobFromStream(blockBlobContainerName, file.originalname, stream, file.size, options, (error, results) => {
+          if(error){
+              console.log("Error");
+              console.log(error);
+          } else {
+              console.log("Results");
+              console.log(results);
+              console.log("Gpt data");
+              res.json(file);
+          }
+      });
+
+    //   res.json(file);
+  } catch (e) {
+      console.log(e);
+      res.json(e);
+  }
 });
 
 /* GET home page. */
