@@ -73,22 +73,62 @@ router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
   try {
       const { blockBlobContainerName } = req.body;
       const file = req.files[0];
-
+      const albumID = req.params.id;
       console.log(req.files);
       var stream = streamifier.createReadStream(file.buffer);
       var options = {contentSettings:{contentType:'Image/png'}}
+      var d = new Date();
+      var fileName = blockBlobContainerName+"-"+d.getTime()+'.png';
+      async.waterfall([
+        function(callback) {
+            azure.uploadBlobFromStream(blockBlobContainerName, fileName, stream, file.size, options, (error, results) => {
+                if(error){
+                    console.log(error);
+                    callback(error, null);
+                } else {
+                    callback(null, fileName)
+                }
+            });
+        },
+        function(fileName, callback) {
+            var imageUrl = config.azure.azureEndpoint+blockBlobContainerName+"/"+fileName;
+            image.addImage(imageUrl,albumID,(err, results) => {
+                if(err){
+                    console.log(error);
+                    callback(error, null);
+                } else {
+                    const response = {
+                        imageUrl,
+                        imageID: results.insertId
+                    }
+                    callback(null, response);
+                }
+            });
+        }
+    ], function (err, result) {
+        if(err){
+            res.json({
+                'error': err
+            })
+        } else {
+            res.json(result);
+        }
+    });
 
-      azure.uploadBlobFromStream(blockBlobContainerName, file.originalname, stream, file.size, options, (error, results) => {
-          if(error){
-              console.log("Error");
-              console.log(error);
-          } else {
-              console.log("Results");
-              console.log(results);
-              console.log("Gpt data");
-              res.json(file);
-          }
-      });
+
+    //   azure.uploadBlobFromStream(blockBlobContainerName, file.originalname, stream, file.size, options, (error, results) => {
+    //       if(error){
+    //           console.log("Error");
+    //           console.log(error);
+    //       } else {
+      //
+      //
+    //           console.log("Results");
+    //           console.log(results);
+    //           console.log("Gpt data");
+    //           res.json(file);
+    //       }
+    //   });
 
     //   res.json(file);
   } catch (e) {
