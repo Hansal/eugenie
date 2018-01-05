@@ -1,6 +1,2 @@
 node_modules
-.DS_Store
 lib/config.json
-npm-debug.log
-package-lock.json
-sql
