@@ -127,6 +127,10 @@
                 dataType: "json",
                 success: function (data) {
                       $('#album-collection ul li:first-child').after('<li><a href=' + data.albumUrl + '><p>' + data.albumName + '</p></a></li>');
+                      $('#newAlbumForm>input').val('');
+                      $('#newAlbumMessage').show();
+                      $('#newAlbumMessage').text('Create Another Album');
+                      $('#newAlbumForm').hide();
                   },
                   error: function (e) {
                       alert('Something went wrong during the upload');
