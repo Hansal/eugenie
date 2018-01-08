@@ -16,4 +16,26 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.post('/', (req, res) => {
+    var albumName = req.body.albumName;
+    if(albumName){
+        albums.createAlbum(albumName, (err, results) => {
+            if(err){
+                console.log(err);
+                res.render('album', { message: 'Error in creating new album', error: err });
+                return;
+            } else {
+                var albumID = results.insertId;
+                var albumUrl = '/albums/'+albumID;
+                res.json({
+                    albumName,
+                    albumUrl,
+                    albumID
+                })
+            }
+        });
+    }
+
+});
+
 module.exports = router;

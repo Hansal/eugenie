@@ -216,3 +216,7 @@ img[data-src] {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
+
+#newAlbumForm {
+    display: none;
+}

@@ -49,10 +49,22 @@
       $("#btnSubmit").click(function (event) {
           //stop submit the form, we will post it manually with js.
           event.preventDefault();
-
+          var duplicateImg;
           // Get form
           var form = $('#imageUploadForm')[0];
-          var duplicateImg = $('img.item.lazy')[0].cloneNode(true);
+          if($('img.item.lazy')[0]){
+              duplicateImg = $('img.item.lazy')[0].cloneNode(true);
+          } else {
+              var elem = $("<img />");
+              $(elem).addClass('item lazy');
+              $(elem).attr('data-toggle','modal');  // set the attribute
+              $(elem).attr('data-target','#myModal');  // set the attribute
+
+
+              duplicateImg = $(elem)[0];
+          }
+
+
           duplicateImg.src = window.location.origin+"/images/loading.gif";
   		// Create an FormData object
           var data = new FormData(form);
@@ -90,7 +102,36 @@
           });
       });
 
-      $('.item').click(function(item){
+      $('.item').click(function(item) {
             bindNewImageClick(item);
+      });
+
+      $('#newAlbumMessage').click(function() {
+          $('#newAlbumForm').show();
+          $('#newAlbumMessage').hide();
+      });
+
+      $('#newAlbumFormCancelButton').click(function() {
+          $('#newAlbumMessage').show();
+          $('#newAlbumForm').hide();
+      });
+
+      $('#newAlbumFormAddButton').click(function() {
+          var albumName = $('#newAlbumForm>input').val();
+          if(albumName != ''){
+              $.ajax({
+                type: "POST",
+                url: window.location.pathname,
+                data: JSON.stringify({ albumName: albumName }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                      $('#album-collection ul li:first-child').after('<li><a href=' + data.albumUrl + '><p>' + data.albumName + '</p></a></li>');
+                  },
+                  error: function (e) {
+                      alert('Something went wrong during the upload');
+                  }
+              });
+          }
       });
   });

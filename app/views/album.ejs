@@ -19,16 +19,25 @@
 
     <div id="album-collection" class="container-fluid">
         <ul>
+            <li>
+                <a href="#" id="newAlbumMessage">Create a New Album</a>
+                <div id="newAlbumForm">
+                    <input type="text" placeholder="New Album Name" required>
+                    <button id="newAlbumFormAddButton" type="button" name="button">Add</button>
+                    <button id="newAlbumFormCancelButton" type="button" name="button">Cancel</button>
+                </div>
+            </li>
             <% for(var i=0; i<albumsData.length; i++) {%>
                 <li>
                     <a href="albums/<%=albumsData[i].ID%>"><p><%= albumsData[i].albumName %></p></a>
                 </li>
             <% } %>
+
         </ul>
 
     </div>
-
   </body>
+  <script type="text/javascript" src="/javascripts/script.js"></script>
 
 
 </html>

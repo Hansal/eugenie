@@ -13,4 +13,9 @@ albums.getAlbumsByIndex = (index, callback) => {
         FROM albums WHERE ID = ?`;
     db.execute(sql, [index], callback);
 }
+
+albums.createAlbum = (albumName, callback) => {
+    const sql = `INSERT INTO albums (albumName) VALUES (?)`;
+    db.execute(sql, [albumName], callback);
+}
 module.exports = albums;
