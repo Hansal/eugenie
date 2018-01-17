@@ -19,6 +19,7 @@
 
     <div id="album-collection" class="container-fluid">
         <ul>
+            <% if(isAdmin) { %>
             <li>
                 <a href="#" id="newAlbumMessage">Create a New Album</a>
                 <div id="newAlbumForm">
@@ -27,6 +28,7 @@
                     <button id="newAlbumFormCancelButton" type="button" name="button">Cancel</button>
                 </div>
             </li>
+            <% } %>
             <% for(var i=0; i<albumsData.length; i++) {%>
                 <li>
                     <a href="albums/<%=albumsData[i].ID%>"><p><%= albumsData[i].albumName %></p></a>

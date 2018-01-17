@@ -106,6 +106,31 @@
             bindNewImageClick(item);
       });
 
+      $('.deleteImg').click(function(item) {
+          var imageId = parseInt(item.currentTarget.dataset.id);
+          var imageUrl = $($(item.currentTarget).parent()[0]).children()[1].src;
+          data = {
+              imageUrl,
+              imageId
+          }
+          $.ajax({
+              type: "GET",
+              enctype: 'multipart/form-data',
+              url: window.location.pathname+"/delete/"+imageId,
+              data: JSON.stringify(data),
+	          contentType: 'application/json',
+              timeout: 600000,
+              success: function (data) {
+                  console.log(data);
+                  $($('img.item[data-id="'+data.imageID+'"]')).parent().remove();
+              },
+              error: function (e) {
+                  alert('Something went wrong during the upload');
+                  console.log(e);
+              }
+          });
+      });
+
       $('#newAlbumMessage').click(function() {
           $('#newAlbumForm').show();
           $('#newAlbumMessage').hide();
@@ -129,7 +154,7 @@
                       $('#album-collection ul li:first-child').after('<li><a href=' + data.albumUrl + '><p>' + data.albumName + '</p></a></li>');
                       $('#newAlbumForm>input').val('');
                       $('#newAlbumMessage').show();
-                      $('#newAlbumMessage').text('Create Another Album');
+                      $('#newAlbumMessage').text('Create Another Album')
                       $('#newAlbumForm').hide();
                   },
                   error: function (e) {

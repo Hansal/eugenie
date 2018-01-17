@@ -16,6 +16,9 @@
 
 
     <h1 class="title"><%= title %></h1>
+    <% if(isAdmin) { %>
+        <p>Logged in as Admin</p>
+    <% } %>
     <!-- <p class="pull-left"><%= subtitle %></p> -->
     <!-- <a class="pull-right" href="/">All Albums</a> -->
 
@@ -41,7 +44,12 @@
 
     <div id="gallery-collection" class="container-fluid masonry">
         <% for(var i=0; i<imagesData.length; i++) {%>
-            <img class="item lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageURL%> />
+            <div>
+                <% if(isAdmin) { %>
+                    <a href="#" class="deleteImg" data-id=<%=imagesData[i].ID%>>Delete</a>
+                <% } %>
+                <img class="item lazy" data-toggle="modal" data-target="#myModal" data-id=<%=imagesData[i].ID%> data-src=<%= imagesData[i].imageURL%> />
+            </div>
         <% } %>
     </div>
 

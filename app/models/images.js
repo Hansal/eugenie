@@ -17,6 +17,16 @@ images.getImagesByAlbumID = (index, callback) => {
     db.execute(sql, [index], callback);
 }
 
+images.deleteImageByImageID = (index, callback) => {
+    const sql = `DELETE FROM images WHERE ID = ?`;
+    db.execute(sql, [index], callback);
+}
+
+images.deleteImageByImageIDAlbumID = (imageID, albumID, callback) => {
+    const sql = `DELETE FROM images WHERE ID = ? AND albumID = ?`;
+    db.execute(sql, [imageID, albumID], callback);
+}
+
 images.getImagesFromIndex = (start, limit, callback) => {
     const sql = `SELECT * FROM images WHERE ID > ? LIMIT ?`;
     db.execute(sql, [start, limit], callback);

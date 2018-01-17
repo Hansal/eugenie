@@ -56,13 +56,15 @@ router.get('/:id', function(req, res, next) {
                 return obj.ID == imageID
             })[0];
         }
-        console.log(results.albumData.albumName);
+        const isAdmin = req.session.isAdmin;
+
         res.render('gallery', {
             title: results.albumData.albumName,
             subtitle: utils.formatDates(results.albumData.createdOn),
             imagesData: results.imageData,
             albumID,
-            openImage
+            openImage,
+            isAdmin
         });
     });
 
@@ -148,8 +150,75 @@ router.get('/', function(req, res, next) {
             res.render('album', { message: 'Error in getting data', error: err });
             return;
         }
-        res.render('album', { title: 'Albums', albumsData: results });
+        const isAdmin = req.session.isAdmin;
+        res.render('album', { title: 'Albums', albumsData: results, isAdmin});
     });
+});
+
+router.get('/:albumID/delete/:imageID', (req, res, next) => {
+    var blockBlobContainerName = "year-end-party";
+    let fileName = '';
+    if(req.session.isAdmin){
+        const { imageID, albumID } = req.params;
+        async.waterfall([
+            (callback) => {
+                //Get the fileName
+                image.getImagesByIndex(imageID, (error, results) => {
+                    if(error){
+                        callback(error, null);
+                    } else {
+                        var h = config.azure.azureEndpoint + blockBlobContainerName + "/";
+                        fileName = results[0].imageURL.substr(h.length);
+                        callback(null,fileName);
+                    };
+                });
+            },
+            (fileName, callback) => {
+                //Delete the file on azure
+                console.log(fileName);
+                azure.deleteBlob(blockBlobContainerName, fileName, (error, results) => {
+                    if(error){
+                        callback(error, null);
+                    } else {
+                        console.log(results);
+                        callback(null, results)
+                    }
+                });
+            },
+            (data, callback) => {
+                // Delete the image in DB
+                image.deleteImageByImageIDAlbumID(imageID, albumID, (error, results) => {
+                    if(error){
+                        console.log(error);
+                        callback(error, null);
+                        return;
+                    } else {
+                        callback(null, results);
+                    }
+                });
+            }
+        ], function (err, result) {
+            if(err){
+                res.json({
+                    'error': err
+                })
+            } else {
+                res.json({
+                        imageID,
+                        albumID,
+                        fileName
+                });
+            }
+        });
+
+
+
+    } else {
+        res.json({
+            message: "403 Unauthorized"
+        })
+    }
+
 });
 
 module.exports = router;

@@ -1,13 +1,19 @@
 var express = require('express');
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session')
 
 var index = require('./routes/index');
+var admin = require('./routes/admin');
 var gallery = require('./routes/gallery');
 var album = require('./routes/album');
+
+
+const config = require('/etc/eugenie/config');
 
 var app = express();
 
@@ -21,9 +27,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:50000 }));
 app.use(bodyParser.raw({ limit: '50mb'}) );
 app.use(cookieParser());
+app.use(cookieSession({
+  name: 'session',
+  keys: [config.session.key],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/admin', admin);
 app.use('/gallery', gallery);
 app.use('/albums', album);
 

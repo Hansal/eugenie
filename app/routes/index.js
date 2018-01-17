@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
             res.render('album', { message: 'Error in getting data', error: err });
             return;
         }
-        res.render('album', { title: 'Albums', albumsData: results });
+        const isAdmin = req.session.isAdmin;
+        res.render('album', { title: 'Albums', albumsData: results, isAdmin });
     });
 });
 
