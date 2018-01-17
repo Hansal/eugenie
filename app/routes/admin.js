@@ -1,4 +1,5 @@
-const config = require('/etc/eugenie/config');
+// const config = require('/etc/eugenie/config');
+const config = require('config');
 var express = require('express');
 var router = express.Router();
 

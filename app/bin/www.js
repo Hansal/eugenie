@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
+
+/**
+ * Set the config directory
+ */
+
+process.env.NODE_CONFIG_DIR = '/etc/eugenie/';
+
 /**
  * Module dependencies.
  */
-
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');

@@ -4,7 +4,8 @@ var guid = require('node-uuid');
 var crypto = require('crypto');
 var storage = require('azure-storage');
 // const config = require('./config');
-const config = require('/etc/eugenie/config');
+// const config = require('/etc/eugenie/config');
+const config = require('config');
 
 
 var blobService = storage.createBlobService(config.azure.azureStorageConnectionString);
@@ -60,13 +61,11 @@ function listBlobsHelper(blobService, container, token, options, blobs, callback
 }
 
 azure.uploadBlobFromStream = (blockBlobContainerName, blobName, stream, size, options, callback) => {
-    console.log(stream);
     blobService.createBlockBlobFromStream(blockBlobContainerName, blobName, stream, size, options, (error, results) => {
         if (error){
             console.log(error);
             callback(error, null);
         } else {
-            console.log(results);
             callback(null, results);
         }
     });

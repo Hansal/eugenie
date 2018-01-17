@@ -13,7 +13,7 @@ var gallery = require('./routes/gallery');
 var album = require('./routes/album');
 
 
-const config = require('/etc/eugenie/config');
+const config = require('config');
 
 var app = express();
 
