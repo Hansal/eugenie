@@ -11,7 +11,7 @@ const config = require('config');
 var blobService = storage.createBlobService(config.azure.azureStorageConnectionString);
 
 var imageToUpload = "HelloWorld.png";
-var blockBlobContainerName = "year-end-party";
+var blockBlobContainerName = config.azure.azureContainer;
 var blockBlobName = "HelloWorld.png";
 
 const azure = {};

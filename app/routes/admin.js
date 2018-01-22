@@ -28,9 +28,9 @@ router.get('/logout', (req, res) => {
     }
 
 });
-
+'randompass'
 router.post('/', (req, res) => {
-    if(req.body.password && req.body.password != 'randompass'){
+    if(req.body.password && req.body.password != config.admin.password){
         req.session.isAdmin = false;
         req.session.adminLoggedInSucess = null;
         res.render('admin', {message: 'Incorrect password, Try again OR '});

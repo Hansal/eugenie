@@ -62,9 +62,11 @@ router.get('/:id', function(req, res, next) {
             title: results.albumData.albumName,
             subtitle: utils.formatDates(results.albumData.createdOn),
             imagesData: results.imageData,
+            container: config.azure.container,
             albumID,
             openImage,
             isAdmin
+
         });
     });
 
@@ -75,7 +77,7 @@ router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
   //   res.header("Access-Control-Allow-Origin", "*");
   //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   try {
-      const { blockBlobContainerName } = req.body;
+      const blockBlobContainerName = config.azure.azureContainer;
       const file = req.files[0];
       const albumID = req.params.id;
       console.log(req.files);
@@ -156,7 +158,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:albumID/delete/:imageID', (req, res, next) => {
-    var blockBlobContainerName = "year-end-party";
+    var blockBlobContainerName = config.azure.azureContainer;
     let fileName = '';
     if(req.session.isAdmin){
         const { imageID, albumID } = req.params;
