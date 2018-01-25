@@ -94,7 +94,7 @@ async.forEachOf(files, function(file, key, loopCallback){
           var options = {contentSettings:{contentType:'Image/png'}};
           var d = new Date();
           var originalFileName = file.originalname.split('.');
-          var fileName = originalFileName[0]+"-"+d.getTime()+originalFileName[1];
+          var fileName = originalFileName[0]+"-"+d.getTime()+"."+originalFileName[1];
           azure.uploadBlobFromStream(blockBlobContainerName, fileName, stream, file.size, options, (error, results) => {
               if(error){
                   console.log(error);
