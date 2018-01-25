@@ -82,16 +82,20 @@
               cache: false,
               timeout: 600000,
               success: function (data) {
-                  duplicateImg.src = data.imageUrl;
-                  duplicateImg.dataset.id = data.imageID;
-                  $('#gallery-collection').prepend(duplicateImg);
-                  $(".loader").hide();
-                  $("#btnSubmit").prop("disabled", false);
-                  $('#uploadModal').modal('hide');
-                  $("#imageUploadForm").show();
-                  $($('.item')[0]).click(function(item){
-                        bindNewImageClick(item);
+                  data.forEach(function(item, key){
+                      console.log(item.imageUrl)
+                      duplicateImg.src = item.imageUrl;
+                      duplicateImg.dataset.id = item.imageID;
+                      $('#gallery-collection').prepend(duplicateImg);
+                      $(".loader").hide();
+                      $("#btnSubmit").prop("disabled", false);
+                      $('#uploadModal').modal('hide');
+                      $("#imageUploadForm").show();
+                      $($('.item')).click(function(clickItem){
+                          bindNewImageClick(clickItem);
+                      });
                   });
+                  document.location.reload();
 
               },
               error: function (e) {

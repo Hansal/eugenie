@@ -76,50 +76,86 @@ router.get('/:id', function(req, res, next) {
 router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
   //   res.header("Access-Control-Allow-Origin", "*");
   //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  let returnJsonArray = [];
   try {
       const blockBlobContainerName = config.azure.azureContainer;
+      console.log("LOGGING FILE NAMES");
+      //   console.log(req.files);
+      console.log("----------------");
+      var files = req.files;
+
+async.forEachOf(files, function(file, key, loopCallback){
+    const albumID = req.params.id;
+    async.waterfall([
+      function(callback) {
+
+          console.log(file);
+          var stream = streamifier.createReadStream(file.buffer);
+          var options = {contentSettings:{contentType:'Image/png'}};
+          var d = new Date();
+          var originalFileName = file.originalname.split('.');
+          var fileName = originalFileName[0]+"-"+d.getTime()+originalFileName[1];
+          azure.uploadBlobFromStream(blockBlobContainerName, fileName, stream, file.size, options, (error, results) => {
+              if(error){
+                  console.log(error);
+                  callback(error, null);
+              } else {
+                  console.log("Reached azure end");
+                  callback(null, fileName)
+              }
+          });
+      },
+      function(fileName, callback) {
+          var imageUrl = config.azure.azureEndpoint+blockBlobContainerName+"/"+fileName;
+          image.addImage(imageUrl,albumID,(err, results) => {
+              if(err){
+                  console.log(error);
+                  callback(error, null);
+              } else {
+                  const response = {
+                      imageUrl,
+                      imageID: results.insertId
+                  }
+                  console.log("Reached DB end");
+                  callback(null, response);
+              }
+          });
+      }
+  ], function (err, result) {
+      console.log("Reached waterfall end");
+      if(err){
+          loopCallback(err);
+      } else {
+          console.log(result);
+          returnJsonArray.push(result)
+          loopCallback(null);
+      }
+  });
+
+
+}, function(err){
+    if(err){
+        console.log(err);
+        res.json(err);
+        return;
+    }
+    console.log(returnJsonArray);
+    res.json(returnJsonArray);
+    console.log("User For Loop Completed");
+});
+
+
+
+
+
+
+
+
+
+
+
       const file = req.files[0];
-      const albumID = req.params.id;
-      console.log(req.files);
-      var stream = streamifier.createReadStream(file.buffer);
-      var options = {contentSettings:{contentType:'Image/png'}}
-      var d = new Date();
-      var fileName = blockBlobContainerName+"-"+d.getTime()+'.png';
-      async.waterfall([
-        function(callback) {
-            azure.uploadBlobFromStream(blockBlobContainerName, fileName, stream, file.size, options, (error, results) => {
-                if(error){
-                    console.log(error);
-                    callback(error, null);
-                } else {
-                    callback(null, fileName)
-                }
-            });
-        },
-        function(fileName, callback) {
-            var imageUrl = config.azure.azureEndpoint+blockBlobContainerName+"/"+fileName;
-            image.addImage(imageUrl,albumID,(err, results) => {
-                if(err){
-                    console.log(error);
-                    callback(error, null);
-                } else {
-                    const response = {
-                        imageUrl,
-                        imageID: results.insertId
-                    }
-                    callback(null, response);
-                }
-            });
-        }
-    ], function (err, result) {
-        if(err){
-            res.json({
-                'error': err
-            })
-        } else {
-            res.json(result);
-        }
-    });
+
 
 
     //   azure.uploadBlobFromStream(blockBlobContainerName, file.originalname, stream, file.size, options, (error, results) => {

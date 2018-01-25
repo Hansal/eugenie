@@ -28,7 +28,7 @@ router.get('/logout', (req, res) => {
     }
 
 });
-'randompass'
+
 router.post('/', (req, res) => {
     if(req.body.password && req.body.password != config.admin.password){
         req.session.isAdmin = false;
