@@ -72,18 +72,21 @@ router.get('/:id', function(req, res, next) {
 
 
 });
-
+// router.post('/:id/upload',  upload.array('blockBlobFile'), (req, res) => {
+//     console.log("This was called");
+//     console.log(req);
+// });
 router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
   //   res.header("Access-Control-Allow-Origin", "*");
   //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   let returnJsonArray = [];
-  try {
+  // try {
       const blockBlobContainerName = config.azure.azureContainer;
       console.log("LOGGING FILE NAMES");
       //   console.log(req.files);
       console.log("----------------");
       var files = req.files;
-
+      console.log(files);
 async.forEachOf(files, function(file, key, loopCallback){
     const albumID = req.params.id;
     async.waterfall([
@@ -91,9 +94,10 @@ async.forEachOf(files, function(file, key, loopCallback){
 
           console.log(file);
           var stream = streamifier.createReadStream(file.buffer);
-          var options = {contentSettings:{contentType:'Image/png'}};
+
           var d = new Date();
           var originalFileName = file.originalname.split('.');
+          var options = {contentSettings:{contentType:'Image/'+originalFileName[1]}};
           var fileName = originalFileName[0]+"-"+d.getTime()+"."+originalFileName[1];
           azure.uploadBlobFromStream(blockBlobContainerName, fileName, stream, file.size, options, (error, results) => {
               if(error){
@@ -124,6 +128,7 @@ async.forEachOf(files, function(file, key, loopCallback){
   ], function (err, result) {
       console.log("Reached waterfall end");
       if(err){
+          console.log(error);
           loopCallback(err);
       } else {
           console.log(result);
@@ -173,10 +178,10 @@ async.forEachOf(files, function(file, key, loopCallback){
     //   });
 
     //   res.json(file);
-  } catch (e) {
-      console.log(e);
-      res.json(e);
-  }
+  // } catch (e) {
+  //     console.log(e);
+  //     res.json(e);
+  // }
 });
 
 

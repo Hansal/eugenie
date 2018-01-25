@@ -44,11 +44,21 @@
 
       $('#uploadClick').click(function(){
           $('#uploadModal').modal('show');
+          $("#btnSubmit").prop("disabled", true);
       })
 
       $("#btnSubmit").click(function (event) {
-          //stop submit the form, we will post it manually with js.
           event.preventDefault();
+          //stop submit the form, we will post it manually with js.
+          var filesArray = $('#imageUploadFileFeild')[0].files;
+          for(var i = 0; i < filesArray.length; i++){
+        	if(filesArray[i].size > 10000000){
+                alert("File size cannot be more than 10 MB");
+        		return;
+        	}
+          }
+
+
           var duplicateImg;
           // Get form
           var form = $('#imageUploadForm')[0];
@@ -68,6 +78,10 @@
           duplicateImg.src = window.location.origin+"/images/loading.gif";
   		// Create an FormData object
           var data = new FormData(form);
+
+
+
+
   		// disabled the submit button
           $("#btnSubmit").prop("disabled", true);
           $("#imageUploadForm").hide();
@@ -109,6 +123,21 @@
       $('.item').click(function(item) {
             bindNewImageClick(item);
       });
+
+      $('#imageUploadFileFeild').bind('change', function() {
+          //this.files[0].size gets the size of your file.
+          alert("File was added");
+          for(var i = 0; i < this.files.length; i++){
+        	if(this.files[i].size > 10000000){
+                $("#btnSubmit").prop("disabled", true);
+                alert("File size cannot be more than 10 MB");
+        		return;
+        	}
+          }
+          $("#btnSubmit").prop("disabled", false);
+      });
+
+
 
       $('.deleteImg').click(function(item) {
           var imageId = parseInt(item.currentTarget.dataset.id);
