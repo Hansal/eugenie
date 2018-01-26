@@ -109,7 +109,7 @@
                           bindNewImageClick(clickItem);
                       });
                   });
-                  document.location.reload();
+                //   document.location.reload();
 
               },
               error: function (e) {
@@ -126,7 +126,6 @@
 
       $('#imageUploadFileFeild').bind('change', function() {
           //this.files[0].size gets the size of your file.
-          alert("File was added");
           for(var i = 0; i < this.files.length; i++){
         	if(this.files[i].size > 10000000){
                 $("#btnSubmit").prop("disabled", true);

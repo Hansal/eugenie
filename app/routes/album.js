@@ -77,6 +77,7 @@ router.get('/:id', function(req, res, next) {
 //     console.log(req);
 // });
 router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
+    console.time("SERVER-TIME");
   //   res.header("Access-Control-Allow-Origin", "*");
   //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   let returnJsonArray = [];
@@ -88,10 +89,11 @@ router.post('/:id/upload', upload.array('blockBlobFile'), (req, res) => {
       var files = req.files;
       console.log(files);
 async.forEachOf(files, function(file, key, loopCallback){
+    console.time("ASYNC-FOR");
     const albumID = req.params.id;
     async.waterfall([
       function(callback) {
-
+          console.time("ASYNC-WATERFALL");
           console.log(file);
           var stream = streamifier.createReadStream(file.buffer);
 
@@ -99,7 +101,9 @@ async.forEachOf(files, function(file, key, loopCallback){
           var originalFileName = file.originalname.split('.');
           var options = {contentSettings:{contentType:'Image/'+originalFileName[1]}};
           var fileName = originalFileName[0]+"-"+d.getTime()+"."+originalFileName[1];
+          console.time("AZURE-UPLOAD");
           azure.uploadBlobFromStream(blockBlobContainerName, fileName, stream, file.size, options, (error, results) => {
+              console.timeEnd("AZURE-UPLOAD");
               if(error){
                   console.log(error);
                   callback(error, null);
@@ -111,7 +115,9 @@ async.forEachOf(files, function(file, key, loopCallback){
       },
       function(fileName, callback) {
           var imageUrl = config.azure.azureEndpoint+blockBlobContainerName+"/"+fileName;
+          console.time("DB-INSERT");
           image.addImage(imageUrl,albumID,(err, results) => {
+              console.timeEnd("DB-INSERT");
               if(err){
                   console.log(error);
                   callback(error, null);
@@ -126,6 +132,7 @@ async.forEachOf(files, function(file, key, loopCallback){
           });
       }
   ], function (err, result) {
+      console.timeEnd("ASYNC-WATERFALL");
       console.log("Reached waterfall end");
       if(err){
           console.log(error);
@@ -139,6 +146,7 @@ async.forEachOf(files, function(file, key, loopCallback){
 
 
 }, function(err){
+    console.timeEnd("ASYNC-FOR");
     if(err){
         console.log(err);
         res.json(err);
@@ -147,6 +155,7 @@ async.forEachOf(files, function(file, key, loopCallback){
     console.log(returnJsonArray);
     res.json(returnJsonArray);
     console.log("User For Loop Completed");
+    console.timeEnd("SERVER-TIME");
 });
 
 
